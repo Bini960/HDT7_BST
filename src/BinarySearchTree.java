@@ -90,5 +90,34 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return searchRecursive(current.getRight(), value);
         }
     }
+
+    /**
+     * Recorrer el arbol en orden e imprimir sus elementos.
+     * Inicia el recorrido desde la raiz.
+     */
+    public void inOrder() {
+        inOrderRecursive(root);
+        System.out.println(); // Agrega un salto de linea al terminar de imprimir todo el arbol
+    }
+
+    /**
+     * Metodo recursivo interno para ejecutar el recorrido In-Order.
+     * Este recorrido procesa los nodos en orden alfabetico.
+     * * @param current El nodo actual que se evalua
+     */
+    private void inOrderRecursive(TreeNode<E> current) {
+        if (current != null) {
+            // Recorrer primero todo el sub-arbol izquierdo (elementos menores)
+            inOrderRecursive(current.getLeft());
+            
+            // Procesar e imprimir el nodo actual
+            // Se asume que el valor es una Association para extraer su llave y valor
+            Association<?, ?> assoc = (Association<?, ?>) current.getValue();
+            System.out.print("(" + assoc.getKey() + ", " + assoc.getValue() + ") ");
+            
+            // Recorrer finalmente todo el sub-arbol derecho (elementos mayores)
+            inOrderRecursive(current.getRight());
+        }
+    }
 }
 
