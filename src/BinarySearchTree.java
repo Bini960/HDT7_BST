@@ -53,5 +53,42 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         return current;
     }
+
+    /**
+     * Buscar un elemento dentro del arbol.
+     * Metodo publico que llama al metodo recursivo privado.
+     * * @param value El elemento a buscar (solo necesita la llave para comparar)
+     * @return El elemento encontrado con su valor o null 
+     */
+    public E search(E value) {
+        return searchRecursive(root, value);
+    }
+
+    /**
+     * Metodo recursivo interno para buscar un nodo.
+     * * @param current El nodo actual que se esta evaluando
+     * @param value El valor (llave) que estamos buscando
+     * @return El dato completo si se encuentra o null si no se encuentra
+     */
+    private E searchRecursive(TreeNode<E> current, E value) {
+        // Caso base 1: Si llega a null la palabra no esta en el diccionario
+        if (current == null) {
+            return null;
+        }
+
+        // Compara lo que se busca con lo que tiene el nodo actual
+        int comparison = value.compareTo(current.getValue());
+
+        if (comparison == 0) {
+            // Caso base 2: Devuelve el dato guardado en este nodo
+            return current.getValue();
+        } else if (comparison < 0) {
+            // Si lo que se busca es menor (alfabeticamente antes), va a la izquierda
+            return searchRecursive(current.getLeft(), value);
+        } else {
+            // Si lo que se busca es mayor (alfabeticamente despues), va a la derecha
+            return searchRecursive(current.getRight(), value);
+        }
+    }
 }
 
