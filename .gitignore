@@ -1,0 +1,12 @@
+# Archivos compilados
+bin/
+*.class
+
+# Configuración de IDE
+.classpath
+.project
+.settings/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
