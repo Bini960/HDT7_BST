@@ -1,3 +1,5 @@
+package diccionario;
+
 /**
  * Implementacion de Key-Value (K,V).
  * Adaptada y basada en los conceptos teoricos de:

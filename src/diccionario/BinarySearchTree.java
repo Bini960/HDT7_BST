@@ -1,3 +1,5 @@
+package diccionario;
+
 /**
  * Implementacion del Arbol Binario de Busqueda.
  * Adaptada y basada en los conceptos teoricos de:

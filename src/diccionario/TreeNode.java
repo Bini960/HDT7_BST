@@ -1,3 +1,5 @@
+package diccionario;
+
 /**
  * Clase para los nodos de un Arbol Binario.
  * Adaptada y basada en los conceptos teoricos de:
