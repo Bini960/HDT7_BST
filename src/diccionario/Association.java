@@ -52,7 +52,7 @@ public class Association<K extends Comparable<K>, V> implements Comparable<Assoc
      */
     @Override
     public int compareTo(Association<K, V> other) {
-        // Delegamos la comparacion al metodo compareTo de la llave (K)
+        // Asignar la comparacion al metodo compareTo de la llave (K)
         return this.key.compareTo(other.getKey());
     }
 }

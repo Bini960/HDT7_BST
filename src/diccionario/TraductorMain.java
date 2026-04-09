@@ -47,49 +47,48 @@ public class TraductorMain {
         System.out.println("-------------------------------------\n");
 
         // 3. Traduccion y Profiling
-        System.out.println("=== Traduccion del texto ===");
-        try {
-            File archivoTexto = new File("texto.txt");
-            Scanner lectorTexto = new Scanner(archivoTexto);
-            
-            // Iniciar cronometro para el profiling
-            long tiempoInicio = System.nanoTime();
-            
-            while (lectorTexto.hasNextLine()) {
-                String linea = lectorTexto.nextLine();
-                String[] palabras = linea.split(" ");
-                
-                for (String palabra : palabras) {
-                    // Limpiar signos de puntuacion para evaluar unicamente letras
-                    String palabraLimpia = palabra.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        System.out.println("=== Traduccion del texto con Profiling ===");
+            try {
+                // Iniciar cronometro para el profiling
+                long tiempoInicio = System.nanoTime();
+
+                // Ejecutar la traduccion 500,000 veces para mantener el proceso activo y medir el tiempo total
+                for (int i = 0; i < 500000; i++) {
+                    File archivoTexto = new File("texto.txt");
+                    Scanner lectorTexto = new Scanner(archivoTexto);
                     
-                    if (!palabraLimpia.isEmpty()) {
-                        // Crear asociacion temporal requerida para la busqueda
-                        Association<String, String> busqueda = new Association<>(palabraLimpia, null);
-                        Association<String, String> resultado = diccionario.search(busqueda);
+                    while (lectorTexto.hasNextLine()) {
+                        String linea = lectorTexto.nextLine();
+                        String[] palabras = linea.split(" ");
                         
-                        if (resultado != null) {
-                            // Imprimir la traduccion obtenida del arbol
-                            System.out.print(resultado.getValue() + " ");
-                        } else {
-                            // Imprimir la palabra original rodeada de asteriscos al no encontrar coincidencia
-                            System.out.print("*" + palabra + "* ");
+                        for (String palabra : palabras) {
+                            String palabraLimpia = palabra.replaceAll("[^a-zA-Z]", "").toLowerCase();
+                            
+                            if (!palabraLimpia.isEmpty()) {
+                                Association<String, String> busqueda = new Association<>(palabraLimpia, null);
+                                Association<String, String> resultado = diccionario.search(busqueda);
+                                
+                                // Omitir impresiones en consola durante el estres para evitar saturacion
+                                if (i == 0 && resultado != null) {
+                                    System.out.print(resultado.getValue() + " ");
+                                } else if (i == 0) {
+                                    System.out.print("*" + palabra + "* ");
+                                }
+                            }
                         }
+                        if (i == 0) System.out.println();
                     }
+                    lectorTexto.close();
                 }
-                System.out.println(); // Mantener el formato de parrafos del archivo original
+                
+                long tiempoFin = System.nanoTime();
+                long duracion = tiempoFin - tiempoInicio;
+                
+                System.out.println("\n-------------------------------------");
+                System.out.println("Tiempo total: " + duracion + " nanosegundos");
+                
+            } catch (FileNotFoundException e) {
+                System.out.println("No se encontro el archivo texto.txt.");
             }
-            lectorTexto.close();
-            
-            // Finalizar cronometro y calcular el tiempo total
-            long tiempoFin = System.nanoTime();
-            long duracion = tiempoFin - tiempoInicio;
-            
-            System.out.println("\n-------------------------------------");
-            System.out.println("Tiempo de busqueda y traduccion: " + duracion + " nanosegundos");
-            
-        } catch (FileNotFoundException e) {
-            System.out.println("No se encontro el archivo texto.txt.");
-        }
     }
 }
