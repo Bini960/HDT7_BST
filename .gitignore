@@ -6,6 +6,7 @@ bin/
 .classpath
 .project
 .settings/
+*.iml
 
 # Archivos del sistema
 .DS_Store
