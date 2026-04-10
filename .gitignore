@@ -7,6 +7,8 @@ bin/
 .project
 .settings/
 *.iml
+.vscode/
+.idea/
 
 # Archivos del sistema
 .DS_Store
